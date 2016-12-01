@@ -1,0 +1,7 @@
+# TODO
+1. html 有问题
+1. auto complete
+1. js 结束括号之类的
+1. 预览
+1. Emmet
+1. codemirror 的代码结构，插件引用，好乱。。。
