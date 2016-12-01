@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Web IDE</title>
+  <link rel="stylesheet" href="vendor/codemirror/lib/codemirror.css">
+  <script src="vendor/codemirror/lib/codemirror.js"></script>
+  <script src="vendor/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+  <script src="vendor/codemirror/mode/css/css.js"></script>
+  <script src="vendor/codemirror/mode/javascript/javascript.js"></script>
+  <style>
+    .edit-item{
+      display: inline-block;
+      width: 30%;
+      vertical-align: top;
+      height: 100px;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+  <div class="row">
+    <div class="edit-item">
+      <h2>HTML</h2>
+        <textarea id="html">
+<div id="a">
+  <span class="b"></span>
+</div>
+      </textarea>
+    </div>
+    <div class="edit-item">
+      <h2>CSS</h2>
+        <textarea id="css">
+#a {
+  width:50%;
+}
+  </textarea>
+    </div>
+    <div class="edit-item">
+      <h2>JavaScript</h2>
+      <textarea id="js">
+function log (str){
+  console.log(str)
+}
+      </textarea>
+    </div>
+  </div>
+</div>
+
+
+
+  <script>
+  var htmlEditor = CodeMirror.fromTextArea(document.querySelector('#html'), {
+    lineNumbers: true,
+    mode: {
+        name: "htmlmixed",
+    }
+  });
+  var cssEditor = CodeMirror.fromTextArea(document.querySelector('#css'), {
+    lineNumbers: true,
+    mode: "css",
+  });
+  var jsEditor = CodeMirror.fromTextArea(document.querySelector('#js'), {
+    lineNumbers: true,
+    mode: "javascript",
+  });
+  </script>
+</body>
+
+</html>
