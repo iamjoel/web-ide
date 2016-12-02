@@ -10,31 +10,41 @@
   <script src="vendor/codemirror/mode/css/css.js"></script>
   <script src="vendor/codemirror/mode/javascript/javascript.js"></script>
   <style>
+    .code-wrap{
+      height: 600px;
+    }
     .edit-item{
       display: inline-block;
       width: 30%;
       vertical-align: top;
       height: 100px;
     }
+    #preview{
+      min-height: 200px;
+      background-color: #f60;
+    }
   </style>
 </head>
 
 <body>
+<div>
+  <button id="run-btn">运行</button>
+</div>
 <div class="container">
-  <div class="row">
+  <div class="row code-wrap">
     <div class="edit-item">
       <h2>HTML</h2>
-        <textarea id="html">
+      <textarea id="html">
 <div id="a">
-  <span class="b"></span>
+  <span class="b">xxx</span>
 </div>
       </textarea>
     </div>
     <div class="edit-item">
       <h2>CSS</h2>
-        <textarea id="css">
-#a {
-  width:50%;
+      <textarea id="css">
+.b {
+  color: #fff;
 }
   </textarea>
     </div>
@@ -44,28 +54,70 @@
 function log (str){
   console.log(str)
 }
+log('aaa')
       </textarea>
     </div>
+  </div>
+
+  <div class="res">
+    <iframe  frameborder="0" id="preview">
+      <body>
+        <div class="result">xxx</div>
+      </body>
+    </iframe>
   </div>
 </div>
 
 
 
   <script>
-  var htmlEditor = CodeMirror.fromTextArea(document.querySelector('#html'), {
-    lineNumbers: true,
-    mode: {
-        name: "htmlmixed",
+  (function () {
+    var htmlEditor = CodeMirror.fromTextArea(document.querySelector('#html'), {
+      lineNumbers: true,
+      mode: {
+          name: "htmlmixed",
+      }
+    });
+    var cssEditor = CodeMirror.fromTextArea(document.querySelector('#css'), {
+      lineNumbers: true,
+      mode: "css",
+    });
+    var jsEditor = CodeMirror.fromTextArea(document.querySelector('#js'), {
+      lineNumbers: true,
+      mode: "javascript",
+    });
+
+    document.getElementById('run-btn').addEventListener('click', run)
+    var previewEl = document.getElementById('preview')
+    function run() {
+      var html = htmlEditor.getValue()
+      var style = cssEditor.getValue()
+      var js = jsEditor.getValue()
+      var res = `
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    ${style}
+    </style>
+  </head>
+  <body>
+    ${html}
+    <script>
+      ${js}
+    <\/script>
+  </body>
+</html>
+      `
+      var preview =  previewEl.contentDocument ||  previewEl.contentWindow.document;
+        preview.open();
+        preview.write(res);
+        preview.close()
+
     }
-  });
-  var cssEditor = CodeMirror.fromTextArea(document.querySelector('#css'), {
-    lineNumbers: true,
-    mode: "css",
-  });
-  var jsEditor = CodeMirror.fromTextArea(document.querySelector('#js'), {
-    lineNumbers: true,
-    mode: "javascript",
-  });
+  })()
   </script>
 </body>
 
