@@ -5,51 +5,64 @@
   <meta charset="UTF-8">
   <title>Web IDE</title>
   <link rel="stylesheet" href="vendor/codemirror/lib/codemirror.css">
+  <link rel="stylesheet" href="assets/css/index.css">
   <script src="vendor/codemirror/lib/codemirror.js"></script>
+  <script src="vendor/codemirror/mode/xml/xml.js"></script>
   <script src="vendor/codemirror/mode/htmlmixed/htmlmixed.js"></script>
   <script src="vendor/codemirror/mode/css/css.js"></script>
   <script src="vendor/codemirror/mode/javascript/javascript.js"></script>
   <style>
-    .code-wrap{
-      height: 600px;
-    }
-    .edit-item{
-      display: inline-block;
-      width: 30%;
-      vertical-align: top;
-      height: 100px;
-    }
-    #preview{
-      min-height: 200px;
-      background-color: #f60;
-    }
+    
+
   </style>
 </head>
 
 <body>
-<div>
+<header class="header">
   <button id="run-btn">运行</button>
-</div>
+</header>
 <div class="container">
-  <div class="row code-wrap">
-    <div class="edit-item">
-      <h2>HTML</h2>
+  <div class="code-wrap">
+    <div class="panel">
+      <h2 class="panel__title">HTML</h2>
       <textarea id="html">
-<div id="a">
-  <span class="b">xxx</span>
+<div class="box">
+  <div class="box__header">温馨提示</div>
+  <div class="box__content">
+    Hello World!
+  </div>
 </div>
       </textarea>
     </div>
-    <div class="edit-item">
-      <h2>CSS</h2>
+    <div class="panel">
+      <h2 class="panel__title">CSS</h2>
       <textarea id="css">
-.b {
+body {
+  margin: 0;
+  background: #ddd;
+  color: #333;
+}
+.box {
+  margin: 0 auto;
+  width: 300px;
+  background: #fff;
+}
+.box__header {
+  height: 30px;
+  line-height: 30px;
+  padding-left: 10px;
+  font-size: 20px;
+  background: #f60;
   color: #fff;
+}
+.box__content {
+  padding: 10px;
+  text-align: center;
 }
   </textarea>
     </div>
-    <div class="edit-item">
-      <h2>JavaScript</h2>
+    <div class="panel">
+      <h2 class="panel__title">JavaScript</h2>
       <textarea id="js">
 function log (str){
   console.log(str)
@@ -60,6 +73,7 @@ log('aaa')
   </div>
 
   <div class="res">
+    <h2 class="panel__title">输出结果</h2>
     <iframe  frameborder="0" id="preview">
       <body>
         <div class="result">xxx</div>
@@ -68,57 +82,10 @@ log('aaa')
   </div>
 </div>
 
+  <script src="vendor/jquery.min.js"></script>
+  <script src="assets/js/index.js"></script>
 
 
-  <script>
-  (function () {
-    var htmlEditor = CodeMirror.fromTextArea(document.querySelector('#html'), {
-      lineNumbers: true,
-      mode: {
-          name: "htmlmixed",
-      }
-    });
-    var cssEditor = CodeMirror.fromTextArea(document.querySelector('#css'), {
-      lineNumbers: true,
-      mode: "css",
-    });
-    var jsEditor = CodeMirror.fromTextArea(document.querySelector('#js'), {
-      lineNumbers: true,
-      mode: "javascript",
-    });
-
-    document.getElementById('run-btn').addEventListener('click', run)
-    var previewEl = document.getElementById('preview')
-    function run() {
-      var html = htmlEditor.getValue()
-      var style = cssEditor.getValue()
-      var js = jsEditor.getValue()
-      var res = `
-<!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <style>
-    ${style}
-    </style>
-  </head>
-  <body>
-    ${html}
-    <script>
-      ${js}
-    <\/script>
-  </body>
-</html>
-      `
-      var preview =  previewEl.contentDocument ||  previewEl.contentWindow.document;
-        preview.open();
-        preview.write(res);
-        preview.close()
-
-    }
-  })()
-  </script>
 </body>
 
 </html>

@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+}
+.code-wrap {
+  /*height: 600px;*/
+  text-align: justify;
+  font-size: 0;
+}
+
+.code-wrap:after {
+  content: '';
+  display: inline-block;
+  width: 100%;
+}
+
+/* 编辑器高度 */
+.CodeMirror {
+  height: 280px;
+}
+
+.panel {
+  display: inline-block;
+  vertical-align: top;
+  font-size: medium;
+  box-sizing: border-box;
+  width: 33.3%;
+}
+
+#preview {
+  width: 100%;
+}
